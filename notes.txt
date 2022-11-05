@@ -1,0 +1,12 @@
+no obstacles
+
+pawn movements
+- move infront
+- capture diagionally
+
+black (downwards)
+
+white (upwards)
+
+we create a generic pawn class and implement black and white classes
+

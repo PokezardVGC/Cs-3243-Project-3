@@ -1,0 +1,113 @@
+change movements of pieces (part 1)
+
+obsticles: 
+ if own piece cannot continue moving (rook and bishop) break iteration
+
+ check if own piece -->same color done
+ 
+if enemy piece can only move until said position (rook and bishop) break after this iteration (flag)
+
+ check if enemy piece --> diff color done
+
+ knight/ferz/king check--> if tile is own piece cannot move there (iterate through all actions generated) done
+
+ white pawn:
+    if piece in front(y+1) (own/ememy), cannot move
+    if diagional enemy (y+1, x-1) (y+1, x+1), can move there
+
+ black pawn:
+    if piece in front (y-1)(own/ememy), cannot move
+    if diagional enemy (y-1, x-1) (y-1, x+1), can move there
+
+hard code starting stage in grid (still not sure of input output)
+ 
+state (part 2)
+ - rows
+ - cols
+ - board (dictionary)
+ - turn (black, white)
+ - is.terminal
+ - captured_piece
+
+ - whose_turn() self.turn % 2
+
+ - actions()
+  - possible_moves = dic of pieces {(("knight", "black", (b, 2)): [(a,0), ...]}
+  - for every own piece, call .get_action(). and set as key of dic
+
+ - make move()
+   - ls_of_states[]
+   - for every key, value in possible_moves.items()
+       for every position in value:
+         state = move(key, new_coord)
+         ls_of_states.append(state)
+
+ - move(piece, new_coord)
+   terminate = false
+   if new_coord == enemy king,
+	is.terminate = True
+   copy_board = board.deepcopy()
+   copy_board[piece.get_pos()] = False
+   if copy_board[piece.get_pos()] :
+       captured_piece = copy_board[piece.get_pos()]
+   copy_board[new_coord] = piece
+   state(copy_board, turn + 1, terminate, captured_piece)
+
+ - is_checkmate(): ?? needed
+   
+
+ - utility (part 3)
+
+   make static variable dictionary of values {
+   pawn:1
+   frez:2
+   knight:3
+   bishop:3
+   Rook:5
+   Princess:6
+   Empress:8
+   Queen:9
+   King:200
+   }
+   
+   attacking tiles = self.get_actions()
+   check = board[("king", other color)] in attacking tiles
+   total = 0
+   if check and captured_piece exists: #prefer to capture and check
+      total +=100
+      total += dic[capture_piece]
+   else if captured: # next perference capture
+      total += 10
+      total += dic[capture_piece]
+   else if check: % we go for check
+      total +=5
+
+max_val(state, alpha, beta, depth):
+  if state.is_terminal or depth == 0:
+     return state.utility(), None
+  v = -float('inf')
+  for action in state.get_actions(state.whose_turn()):
+    v2, - = min_value(state.move(action), alpha, beta, depth -1)
+    if v2 > v:
+        v, move = v2, action
+        alpha = max(alpha, v)
+    if v >= beta:
+        return v, move
+   return v, move
+
+min_val(state, alpha, beta, depth):
+  if state.is_terminal or depth == 0:
+    return state.utility(), None
+  v = float('inf')
+  for action in state.actions(state.whose_turn()):
+     v2, - = max_value(state.move(action), alpha, beta, depth - 1)
+     if v2 < v:
+       v, move = v2, action
+       beta = min(beta, v)
+     if v <= alpha:
+         return v, move
+   return v, move
+
+   
+
+ 

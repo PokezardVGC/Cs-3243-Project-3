@@ -1,0 +1,72 @@
+implement a pawn piece (white & black)
+only move 1 unit up to unoccupied space
+diagional to capture pieces
+
+starting config is a dic
+
+col is chara, row is int
+
+check:
+king is under attack by enemy pieces
+agent should move the piece away from the check
+
+1.standard checkmate
+No other moves possible to move out of check
+
+2.Out of valid moves
+Cannot move anything else to out of check
+
+3.King capture
+King is completely out of board
+
+4.Draw (no need implement)
+no of pieces same as black and while after 50 moves
+
+student agent:
+do not edit
+
+ab()-can add parameters
+
+setUpBoard() take in text file and output position of pieces
+
+good evulation function more impt, ltr then finetune 
+
+reference alpha beta
+
+pirotise checking or capturing a pieces
+
+less than 1s/0.5s for a move
+
+limit depth of mini-max tree
+
+at cut off depth, how good is the evulation function at cur off depth (depth of 3)
+
+same function as smart and mini-max
+
+you are white
+
+
+
+state
+ - rows
+ - cols
+ - board (black, white)
+ - turn
+ - is.terminal
+
+ - whose_turn() self.turn % 2
+
+ - actions
+  - which pieces attacking where (dic:list)
+  - 
+
+ - move
+
+ - utility
+
+max_val()
+
+min_val()
+
+ab
+
